@@ -1,0 +1,91 @@
+/* Allgemein*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #5dee8d;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+/*Überschrift */
+h1 {
+    color: #333;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+/*Suchfeld, Dropdown und Buttons */
+input, select, button {
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+input {
+    width: 250px;
+}
+
+select {
+    cursor: pointer;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Sortierbuttons */
+button.sort-btn {
+    background-color: #28a745;
+}
+
+button.sort-btn:hover {
+    background-color: #218838;
+}
+
+/* Ergebnisse */
+#results {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+#results li {
+    background: white;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+/* SuchergebnisCounter */
+#result-count {
+    font-size: 18px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Hover-Effekt */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#results li {
+    animation: fadeIn 0.3s ease-in-out;
+}

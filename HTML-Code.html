@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html lang="de"> <!-- Deutsch -->
+<head>
+    <meta charset="UTF-8"> <!-- Damit auch Umlaute gezeigt werden -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Für Handys zB -->
+    <title>Mäulchen - Alles für Ihre Lieblinge</title> <!-- Wird im tab angezeigt -->
+    <link rel="icon" href="https://static.thenounproject.com/png/471555-200.png" type="bild/icon-typ"> <!--Icon im Tab-->
+    <link rel="stylesheet" href="CSS-Code.css"> <!-- Connection zu CSS-->
+</head>
+<body>
+    <h1>🐱 Mäulchen - Alles für Ihre Lieblinge 🐶</h1> <!-- Überschrift der Seite-->
+
+    <!-- Eingabefeld für den Suchbegriff -->
+    <input type="text" id="search" placeholder="Gib einen Suchbegriff ein">
+    
+    <!-- Dropdown-Menü (Select), um die Kategorie auszuwählen -->
+    <select id="category">
+        <option value="alle">Alle Kategorien</option> <!-- Standardwert -->
+        <option value="Tierfutter">Tierfutter</option> <!-- Option 1 -->
+        <option value="Tierspielzeug">Tierspielzeug</option> <!-- Option2 -->
+    </select>
+
+    <!-- Schaltfläche für Suche -->
+    <button onclick="search()">Suchen</button>
+    
+    <!-- Liste der Suchergebnisse -->
+    <ul id="results"></ul>
+    
+    <!-- Anzahl gefundene Ergebnisse -->
+    <p id="result-count"></p> <!-- Hinweis zur Anzahl der Suchergebnisse -->
+
+    <script>
+        // Funktion Suche
+        function search(sort = 'asc') { // Standardwert aufsteigend
+            const query = document.getElementById("search").value; // Den Suchbegriff aus dem Eingabefeld
+            const category = document.getElementById("category").value; // Die ausgewählte Kategorie
+
+            // Die Suchanfrage an den Server schicken (mit 'query', 'category' und 'sort')
+            fetch(`PHP-Datei.php?query=${query}&category=${category}&sort=${sort}`)
+                .then(response => response.json()) // Antwort des Servers als JSON-Objek
+                .then(data => {
+                    const resultsList = document.getElementById("results"); // Die UL-Liste für Ergebnisse
+                    const resultCount = document.getElementById("result-count"); // Anzahl der Ergebnisse
+
+                    resultsList.innerHTML = ""; // Die Liste der Ergebnisse zurücksetzen
+                    resultCount.textContent = ""; // Den Text zur Anzahl der Ergebnisse zurücksetzen
+
+                    // Prüfen obs Ergebnisse gibt
+                    if (data.length === 0 || data.error) {
+                        resultCount.textContent = "❌ Keine Ergebnisse gefunden!"; // Eine Fehlermeldung anzeigen, wenn keine Ergebnisse
+                    } else {
+                        // Sonst, diese in die Liste einfügen
+                        data.forEach(item => {
+                            const li = document.createElement("li"); // Ein neues Listenelement (li) erstellen
+                            li.textContent = `${item.name} - ${item.preis}€)`; // Inhalt der Elemente in der Liste
+                            resultsList.appendChild(li); // Das Listenelement zur Ergebnisliste hinzufügen
+                        });
+                        resultCount.textContent = `${data.length} Suchergebnisse`; // Die Anzahl der gefundenen Ergebnisse anzeigen
+                    }
+                })
+        }
+    </script>
+
+     <!-- Schaltflächen zum Sortieren der Listenelemente -->
+     <button onclick="search('asc')">🔼 Preis aufsteigend</button>
+     <button onclick="search('desc')">🔽 Preis absteigend</button>
+     
+</body>
+</html>
